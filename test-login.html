@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            height: 100%;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Main container */
+        .container {
+            text-align: center;
+        }
+
+        h1 {
+            color: white;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Trigger button */
+        button[popovertarget] {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 16px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        button[popovertarget]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        button[popovertarget]:active {
+            transform: translateY(0);
+        }
+
+        /* Popover styles */
+        [popover] {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            border: none;
+            max-width: 400px;
+            width: 90vw;
+            animation: fade-out 0.7s ease-out;
+        }
+
+        [popover]:popover-open {
+            animation: fade-in 0.7s ease-out;
+        }
+
+        [popover]:popover-open::backdrop {
+            animation: backdrop-fade-in 0.7s ease-out forwards;
+        }
+
+        /* Form styles */
+        .login-header {
+            margin-bottom: 30px;
+        }
+
+        .login-header h2 {
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .login-header p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            color: #555;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-actions {
+            margin-top: 30px;
+        }
+
+        .login-button {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .forgot-link {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-link:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+        /* Animation keyframes */
+        @keyframes fade-in {
+            0% {
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        @keyframes fade-out {
+            0% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+                display: block;
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+                display: none;
+            }
+        }
+
+        @keyframes backdrop-fade-in {
+            0% {
+                background-color: transparent;
+                backdrop-filter: blur(0px);
+            }
+            100% {
+                background-color: rgb(0 0 0 / 40%);
+                backdrop-filter: blur(8px);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            [popover] {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Welcome Back</h1>
+        <p class="subtitle">Click below to access your account</p>
+        <button popovertarget="loginPopover">Sign In</button>
+    </div>
+
+    <div popover="auto" id="loginPopover">
+        <div class="login-header">
+            <h2>Sign In</h2>
+            <p>Enter your credentials to continue</p>
+        </div>
+        
+        <form>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="Enter your email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password" required>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="login-button">Sign In</button>
+                <a href="#" class="forgot-link">Forgot your password?</a>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
